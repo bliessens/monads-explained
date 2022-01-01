@@ -38,4 +38,3 @@ data class AccountV2 private constructor(val balance: BigDecimal) {
 
 sealed class AccountError
 object NegativeAmount : AccountError()
-

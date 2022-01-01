@@ -12,7 +12,6 @@ internal class AccountV2Test {
 
         assertThat(account).isInstanceOf(Either.Right::class.java)
         assertThat((account as Either.Right<AccountV2>).value).isEqualTo(AccountV2.create(200.toBigDecimal()))
-
     }
 
     @Test
