@@ -1,21 +1,34 @@
 package monads
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
-internal class AccountV2Test {
+class AccountV2Test {
 
     @Test
-    internal fun testDeposit() {
-        val account = AccountV2.create(100.toBigDecimal())
-            .flatMap { account -> account.deposit(100.toBigDecimal()) }
-
-        assertThat(account).isInstanceOf(Either.Right::class.java)
-        assertThat((account as Either.Right<AccountV2>).value).isEqualTo(AccountV2.create(200.toBigDecimal()))
+    fun testEquality() {
+        assertTrue(AccountV2.create(100.toBigDecimal()) == AccountV2.create(100.toBigDecimal()))
     }
 
     @Test
-    internal fun testDepositBadCase() {
+    fun testDepositEquality() {
+        assertThat(AccountV2.create(100.toBigDecimal())
+            .flatMap { account -> account.deposit(100.toBigDecimal()) })
+            .isEqualTo(AccountV2.create(200.toBigDecimal()))
+    }
+
+    @Test
+    fun testDeposit() {
+        val account = AccountV2.create(100.toBigDecimal())
+            .flatMap { account -> account.deposit(100.toBigDecimal()) }
+
+        assertThat(account)
+            .isEqualTo(AccountV2.create(200.toBigDecimal()))
+    }
+
+    @Test
+    fun testDepositBadCase() {
         val account = AccountV2.create(100.toBigDecimal().negate())
             .flatMap { account -> account.deposit(100.toBigDecimal()) }
 

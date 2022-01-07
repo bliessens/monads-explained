@@ -15,7 +15,6 @@ data class AccountV1 private constructor(val balance: BigDecimal) {
 
 class NegativeAmountException : Exception()
 
-// version 2
 data class AccountV2 private constructor(val balance: BigDecimal) {
 
     companion object {
